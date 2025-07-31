@@ -67,11 +67,9 @@ def _mock_db_time(*, model, time=datetime(2024, 1, 2)):
     # Registra AMBOS os hooks ANTES do yield
     event.listen(model, 'before_insert', fake_time_hook)
 
-    try:
-        yield time
-    finally:
-        # Remove AMBOS os hooks
-        event.remove(model, 'before_insert', fake_time_hook)
+    yield time
+    # Remove AMBOS os hooks
+    event.remove(model, 'before_insert', fake_time_hook)
 
 
 @pytest.fixture
@@ -82,7 +80,7 @@ def mock_db_time():
 @pytest.fixture
 def token(client, user):
     response = client.post(
-        '/token',
+        '/auth/token',
         data={'username': user.email, 'password': user.clean_password},
     )
     return response.json()['access_token']
