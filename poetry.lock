@@ -365,6 +365,40 @@ dnspython = ">=2.0.0"
 idna = ">=2.0.0"
 
 [[package]]
+name = "factory-boy"
+version = "3.3.3"
+description = "A versatile test fixtures replacement based on thoughtbot's factory_bot for Ruby."
+optional = false
+python-versions = ">=3.8"
+groups = ["dev"]
+files = [
+    {file = "factory_boy-3.3.3-py2.py3-none-any.whl", hash = "sha256:1c39e3289f7e667c4285433f305f8d506efc2fe9c73aaea4151ebd5cdea394fc"},
+    {file = "factory_boy-3.3.3.tar.gz", hash = "sha256:866862d226128dfac7f2b4160287e899daf54f2612778327dd03d0e2cb1e3d03"},
+]
+
+[package.dependencies]
+Faker = ">=0.7.0"
+
+[package.extras]
+dev = ["Django", "Pillow", "SQLAlchemy", "coverage", "flake8", "isort", "mongoengine", "mongomock", "mypy", "tox", "wheel (>=0.32.0)", "zest.releaser[recommended]"]
+doc = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-spelling"]
+
+[[package]]
+name = "faker"
+version = "37.5.3"
+description = "Faker is a Python package that generates fake data for you."
+optional = false
+python-versions = ">=3.9"
+groups = ["dev"]
+files = [
+    {file = "faker-37.5.3-py3-none-any.whl", hash = "sha256:386fe9d5e6132a915984bf887fcebcc72d6366a25dd5952905b31b141a17016d"},
+    {file = "faker-37.5.3.tar.gz", hash = "sha256:8315d8ff4d6f4f588bd42ffe63abd599886c785073e26a44707e10eeba5713dc"},
+]
+
+[package.dependencies]
+tzdata = "*"
+
+[[package]]
 name = "fastapi"
 version = "0.115.12"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
@@ -1519,6 +1553,18 @@ files = [
 typing-extensions = ">=4.12.0"
 
 [[package]]
+name = "tzdata"
+version = "2025.2"
+description = "Provider of IANA time zone data"
+optional = false
+python-versions = ">=2"
+groups = ["dev"]
+files = [
+    {file = "tzdata-2025.2-py2.py3-none-any.whl", hash = "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8"},
+    {file = "tzdata-2025.2.tar.gz", hash = "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9"},
+]
+
+[[package]]
 name = "uvicorn"
 version = "0.34.2"
 description = "The lightning-fast ASGI server."
@@ -1763,4 +1809,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13,<4.0"
-content-hash = "be4cdbeb6eb81020d4c9cd8c60700af040ade3691625a1abd06e4870f6d8b4db"
+content-hash = "a2e172934c5b2798c8e829677c98dde00dd3949400e085a0a856a48543211a7b"

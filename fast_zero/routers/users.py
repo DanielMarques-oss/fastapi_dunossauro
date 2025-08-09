@@ -20,12 +20,12 @@ from fast_zero.security import (
     get_password_hash,
 )
 
-router = APIRouter(prefix="/users", tags=["users"])
+router = APIRouter(prefix='/users', tags=['users'])
 Session = Annotated[AsyncSession, Depends(get_session)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
 
 
-@router.post("/", status_code=HTTPStatus.CREATED, response_model=UserPublic)
+@router.post('/', status_code=HTTPStatus.CREATED, response_model=UserPublic)
 async def create_user(user: UserSchema, session: Session):
     db_user = await session.scalar(
         select(User).where(
@@ -37,12 +37,12 @@ async def create_user(user: UserSchema, session: Session):
         if db_user.username == user.username:
             raise HTTPException(
                 status_code=HTTPStatus.CONFLICT,
-                detail="Username already exists",
+                detail='Username already exists',
             )
         elif db_user.email == user.email:
             raise HTTPException(
                 status_code=HTTPStatus.CONFLICT,
-                detail="Email already exists",
+                detail='Email already exists',
             )
 
     hashed_password = get_password_hash(user.password)
@@ -60,7 +60,7 @@ async def create_user(user: UserSchema, session: Session):
     return db_user
 
 
-@router.get("/", response_model=UserList)
+@router.get('/', response_model=UserList)
 async def read_users(
     session: Session, filter_users: Annotated[FilterPage, Query()]
 ):
@@ -69,10 +69,10 @@ async def read_users(
     )
     users = query.all()
 
-    return {"users": users}
+    return {'users': users}
 
 
-@router.put("/{user_id}", response_model=UserPublic)
+@router.put('/{user_id}', response_model=UserPublic)
 async def update_user(
     user_id: int,
     user: UserSchema,
@@ -81,7 +81,7 @@ async def update_user(
 ):
     if current_user.id != user_id:
         raise HTTPException(
-            status_code=HTTPStatus.FORBIDDEN, detail="Not enough permissions"
+            status_code=HTTPStatus.FORBIDDEN, detail='Not enough permissions'
         )
     try:
         current_user.username = user.username
@@ -95,11 +95,11 @@ async def update_user(
     except IntegrityError:
         raise HTTPException(
             status_code=HTTPStatus.CONFLICT,
-            detail="Username or Email already exists",
+            detail='Username or Email already exists',
         )
 
 
-@router.delete("/{user_id}", response_model=Message)
+@router.delete('/{user_id}', response_model=Message)
 async def delete_user(
     user_id: int,
     session: Session,
@@ -107,10 +107,10 @@ async def delete_user(
 ):
     if current_user.id != user_id:
         raise HTTPException(
-            status_code=HTTPStatus.FORBIDDEN, detail="Not enough permissions"
+            status_code=HTTPStatus.FORBIDDEN, detail='Not enough permissions'
         )
 
     await session.delete(current_user)
     await session.commit()
 
-    return {"message": "User deleted"}
+    return {'message': 'User deleted'}
